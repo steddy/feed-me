@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+  <ModulePrefs title="Feed Gadget" /> 
+  <Content type="html">
+     <![CDATA[ 
+        <html style="height:100%">
+          <head>
+            <style>
+              html, body { height:100%; }
+              body { 
+                font-family: 'Roboto', sans-serif;
+        				font: 12pt;
+              }
+            </style>
+        
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <script type="text/javascript">
+        
+            google.load("feeds", "1");
+        
+            function initialize() {
+              var feed = new google.feeds.Feed("http://mrstedfast.blogspot.com/feeds/posts/default");
+              feed.setNumEntries(3);
+              feed.includeHistoricalEntries();
+              feed.load(function(result) {
+                if (!result.error) {
+                  var container = document.getElementById("feed");
+                  for (var i = 0; i < result.feed.entries.length; i++) {
+                    var entry = result.feed.entries[i];
+                    var div = document.createElement("div");
+        <!--            div.appendChild(document.createTextNode(entry.title));-->
+                    div.innerHTML = "<br>" + "<a href=" + entry.link + " target='_top'>" + entry.title + "</a>";
+                    container.appendChild(div);
+                    var div2 = document.createElement("div");
+                    div2.innerHTML = "<br>" + entry.content + entry.link;
+                    container.appendChild(div2);
+                  }
+                }
+              });
+            }
+            google.setOnLoadCallback(initialize);
+        
+            </script>
+          </head>
+          <body style="height:100%;font-family:'Roboto',sans-seif;">
+            <div id="feed" style="background-color:#2aabdf;height:100%;"></div>
+          </body>
+        </html>
+     ]]>
+  </Content> 
+</Module>
