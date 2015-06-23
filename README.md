@@ -18,5 +18,5 @@ The first version is super basic and doesn't include everything I have planned. 
 +Added ModulePrefs
 +Added UserPref (does not yet make use of user selection of number of posts to show)
 
-2015-06-??
+2015-06-19
 +Initial version
