@@ -1,51 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-  <ModulePrefs title="Feed Gadget" /> 
+  <ModulePrefs title="Feed Gadget"
+        title_url="https://github.com/steddy/feed-me"
+        author="Aaron R. Stedfast"
+        author_email="xpurtwitness+feedgadget@gmail.com"
+               description="A gadget using the Google Feeds API, designed to integrate Blogger posts seemlessly into a Google Site without the need for third-party apps and feed burners."> 
+    <Require feature="dynamic-height" />
+  </ModulePrefs>
+  <UserPref name="posts"
+              display_name="Posts to show"
+              datatype="enum"
+              default_value="3">
+      <EnumValue value="1" display_value="1" />
+      <EnumValue value="2" display_value="2" />
+      <EnumValue value="3" display_value="3" />
+    </UserPref>
   <Content type="html">
      <![CDATA[ 
-        <html style="height:100%">
-          <head>
-            <style>
-              html, body { height:100%; }
-              body { 
-                font-family: 'Roboto', sans-serif;
-        				font: 12pt;
-              }
-            </style>
-        
-            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-            <script type="text/javascript">
-        
-            google.load("feeds", "1");
-        
-            function initialize() {
-              var feed = new google.feeds.Feed("http://mrstedfast.blogspot.com/feeds/posts/default");
-              feed.setNumEntries(3);
-              feed.includeHistoricalEntries();
-              feed.load(function(result) {
-                if (!result.error) {
-                  var container = document.getElementById("feed");
-                  for (var i = 0; i < result.feed.entries.length; i++) {
-                    var entry = result.feed.entries[i];
-                    var div = document.createElement("div");
-        <!--            div.appendChild(document.createTextNode(entry.title));-->
-                    div.innerHTML = "<br>" + "<a href=" + entry.link + " target='_top'>" + entry.title + "</a>";
-                    container.appendChild(div);
-                    var div2 = document.createElement("div");
-                    div2.innerHTML = "<br>" + entry.content + entry.link;
-                    container.appendChild(div2);
-                  }
-                }
-              });
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+      html, body { 
+        height:100%;
+        background-color: transparent; 
+      }
+      body, div { 
+        font: 16px 'Roboto', sans-serif;
+      }
+      div { 
+        margin: 5px;
+        padding: 5px;
+      }
+    </style>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      
+      google.load("feeds", "1");
+      
+      function adjustHeight() {
+        gadgets.window.adjustHeight();
+      }
+      
+      function initialize() {
+        var feed = new google.feeds.Feed("http://mrstedfast.blogspot.com/feeds/posts/default");
+        feed.setNumEntries(3);
+        feed.includeHistoricalEntries();
+        feed.load(function(result) {
+          if (!result.error) {
+            var container = document.getElementById("feed");
+            for (var i = 0; i < result.feed.entries.length; i++) {
+              var entry = result.feed.entries[i];
+              var div = document.createElement("div");
+              var date = new Date(entry.publishedDate).toDateString();
+              var post = date + "<br><br>" + "<b>" + entry.title + "</b>" + "<br><br>" + entry.content + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<a href=" + entry.link + " target='_top'>Read more</a><br><br><hr><br>";
+              div.innerHTML = post;
+              container.appendChild(div);
             }
-            google.setOnLoadCallback(initialize);
-        
-            </script>
-          </head>
-          <body style="height:100%;font-family:'Roboto',sans-seif;">
-            <div id="feed" style="background-color:#2aabdf;height:100%;"></div>
-          </body>
-        </html>
+            adjustHeight();
+          }
+        });
+      }      
+      google.setOnLoadCallback(initialize);
+    </script>
+  </head>
+  <body>
+    <div id="feed"></div>
+  </body>
+</html>
      ]]>
   </Content> 
 </Module>
