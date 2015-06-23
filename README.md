@@ -20,4 +20,4 @@ The first version is super basic and doesn't include everything I have planned. 
 + Added feed_gadget_test.html for viewing changes prior to inclusion in gadget or for direct embed into non-Google Site web page.
 
 2015-06-19
-+Initial version
++ Initial version
