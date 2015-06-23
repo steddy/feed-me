@@ -15,8 +15,9 @@ So, apparently, there is no built-in way to incorporate a Blogger (or any) feed 
 The first version is super basic and doesn't include everything I have planned.  I'm also learning how to use GitHub in this process, so bear with me!
 
 2015-06-23
-+Added ModulePrefs
-+Added UserPref (does not yet make use of user selection of number of posts to show)
++ Added ModulePrefs
++ Added UserPref (does not yet make use of user selection of number of posts to show)
++ Added feed_gadget_test.html for viewing changes prior to inclusion in gadget or for direct embed into non-Google Site web page.
 
 2015-06-19
 +Initial version
